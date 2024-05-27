@@ -33,10 +33,10 @@ const smtp_config = (port) => ({
     },
     disabledCommands: ['AUTH']
 });
-new SMTPServer(smtp_config(587)).listen(587, "0.0.0.0");
+// new SMTPServer(smtp_config(587)).listen(587, "0.0.0.0");
 new SMTPServer(smtp_config(25)).listen(25, "0.0.0.0");
-new SMTPServer(smtp_config(2525)).listen(2525, "0.0.0.0");
-new SMTPServer(smtp_config(465)).listen(465, "0.0.0.0");
+// new SMTPServer(smtp_config(2525)).listen(2525, "0.0.0.0");
+// new SMTPServer(smtp_config(465)).listen(465, "0.0.0.0");
 
 module.exports = function (server) {
     server.get('/mail/:mail', async (req, reply) => {
