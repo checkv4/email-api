@@ -1,0 +1,22 @@
+{
+    "name": "main",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "bin": "index.js",
+    "pkg": {
+      "scripts": [
+        "../dist/.ncc/index.js",
+        "../dist/.ncc/*.js"
+      ],
+      "assets": [
+        "../dist/.ncc/**/*"
+      ],
+      "outputPath": "dist",
+      "targets": [
+        "node14-windows-x64"
+      ]
+    },
+    "author": "fengdada"
+  }
+  
