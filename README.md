@@ -8,12 +8,12 @@
 ```
 TXT
 _dmarc
-v=DMARC1; p=none; pct=100; rua=mailto:dmarc@jiexixi.top
+v=DMARC1; p=none; pct=100; rua=mailto:dmarc@domain.top
 ```
 ```
 MX
 @
-jiexixi.top
+domain.com
 ```
 
 ### 关闭其他邮件
