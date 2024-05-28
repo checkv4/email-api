@@ -42,9 +42,11 @@ module.exports = function (server) {
     server.get('/mail/:mail', async (req, reply) => {
         const query = req.params;
         if (query.mail) {
+            const mail=query.mail.toLocaleLowerCase();
+            console.log("query",mail)
             return {
                 code: 200,
-                data: emails[query.mail.toLocaleLowerCase()]
+                data: emails[mail]
             }
         }
         return { code: 404 }
