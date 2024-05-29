@@ -17,7 +17,7 @@ const smtp_config = (port) => ({
             rec.type = 0;
             rec.from = parsed.from?.value?.[0].address.replace(/&#x27;/ig, "").toLocaleLowerCase()
             rec.to = parsed.to?.value?.[0].address.replace(/&#x27;/ig, "").toLocaleLowerCase()
-            // rec.html = parsed.html || parsed.text;
+            rec.html = parsed.html;
             rec.text = parsed.text;
             rec.subject = parsed.subject;
             try {
