@@ -5,6 +5,7 @@ const emails = [];
 const smtp_config = (port) => ({
     //服务器主机名
     authOptional: true,
+    secure:false,
     onData(stream, session, callback) {
         console.log(port, "收到邮件")
         parser(stream, {}, (err, parsed) => {
