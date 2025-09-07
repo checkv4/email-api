@@ -1,0 +1,46 @@
+{
+  "allEmails": {
+    "1757207493913-1": {
+      "id": "1757207493913-1",
+      "timestamp": "2025-09-07T01:11:33.913Z",
+      "metadata": {
+        "status": 200,
+        "type": 0,
+        "receivedAt": "2025-09-07T01:11:33.913Z",
+        "port": 25
+      },
+      "addresses": {
+        "from": "sender@example.com",
+        "to": "recipient@example.com",
+        "domain": "example.com"
+      },
+      "content": {
+        "subject": "Test Email Subject",
+        "html": "<h1>Test Email Content</h1>",
+        "text": "Test Email Content"
+      }
+    },
+    "1757207623718-2": {
+      "id": "1757207623718-2",
+      "timestamp": "2025-09-07T01:13:43.718Z",
+      "metadata": {
+        "status": 200,
+        "type": 0,
+        "receivedAt": "2025-09-07T01:13:43.718Z",
+        "port": 25
+      },
+      "addresses": {
+        "from": "another@example.com",
+        "to": "recipient@example.com",
+        "domain": "example.com"
+      },
+      "content": {
+        "subject": "Second Test Email",
+        "html": "<h1>Second Test Email Content</h1><p>Multiple emails test</p>",
+        "text": "Second Test Email Content - Multiple emails test"
+      }
+    }
+  },
+  "nextId": 3,
+  "savedAt": "2025-09-07T01:13:43.719Z"
+}
