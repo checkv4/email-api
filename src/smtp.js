@@ -1,7 +1,7 @@
 const SMTPServer = require("smtp-server").SMTPServer;
 const parser = require("mailparser").simpleParser
 
-const emails = [];
+const emails = {};
 const smtp_config = (port) => ({
     //服务器主机名
     authOptional: true,
