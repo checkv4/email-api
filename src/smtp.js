@@ -37,7 +37,7 @@ function saveEmails() {
     try {
         ensureDataDir();
         fs.writeFileSync(emailsFilePath, JSON.stringify(emails, null, 2), 'utf8');
-        console.log(`保存了 ${Object.keys(emails).length} 封邮件到文件`);
+        // console.log(`保存了 ${Object.keys(emails).length} 封邮件到文件`);
     } catch (error) {
         console.error('保存邮件数据失败:', error);
     }
@@ -98,6 +98,18 @@ const smtp_config = (port) => ({
 });
 // new SMTPServer(smtp_config(587)).listen(587, "0.0.0.0");
 new SMTPServer(smtp_config(25)).listen(25, "0.0.0.0");
+// SSL/TLS SMTP
+const privkeyPath = path.join(process.cwd(), 'privkey.pem');
+const fullchainPath = path.join(process.cwd(), 'fullchain.pem');
+if (fs.existsSync(privkeyPath) && fs.existsSync(fullchainPath)) {
+    new SMTPServer({
+        ...smtp_config(465),
+        secure: true,
+        key: fs.readFileSync(privkeyPath),
+        cert: fs.readFileSync(fullchainPath)
+    }).listen(465, "0.0.0.0");
+}
+
 // new SMTPServer(smtp_config(2525)).listen(2525, "0.0.0.0");
 // new SMTPServer(smtp_config(465)).listen(465, "0.0.0.0");
 function getMainDomain(hostname) {
