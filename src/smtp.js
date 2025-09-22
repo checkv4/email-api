@@ -102,12 +102,15 @@ new SMTPServer(smtp_config(25)).listen(25, "0.0.0.0");
 const privkeyPath = path.join(process.cwd(), 'privkey.pem');
 const fullchainPath = path.join(process.cwd(), 'fullchain.pem');
 if (fs.existsSync(privkeyPath) && fs.existsSync(fullchainPath)) {
+    console.log("启动 SMTPS 465 端口 TLS/SSL证书");
     new SMTPServer({
         ...smtp_config(465),
         secure: true,
         key: fs.readFileSync(privkeyPath),
         cert: fs.readFileSync(fullchainPath)
     }).listen(465, "0.0.0.0");
+}else{
+    console.log("没有找到 TLS/SSL证书，跳过 SMTPS 465 端口");
 }
 
 // new SMTPServer(smtp_config(2525)).listen(2525, "0.0.0.0");
