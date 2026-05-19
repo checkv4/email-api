@@ -81,6 +81,7 @@ const smtp_config = (port) => ({
             rec.subject = parsed.subject;
             rec.date = new Date(parsed.date).getTime();
             rec.messageId = parsed.messageId;
+            rec.ip = session.remoteAddress;
             try {
                 let list = rec.to.split("@");
                 rec.domain = list[list.length - 1];
@@ -97,7 +98,10 @@ const smtp_config = (port) => ({
     disabledCommands: ['AUTH']
 });
 // new SMTPServer(smtp_config(587)).listen(587, "0.0.0.0");
-new SMTPServer(smtp_config(25)).listen(25, "0.0.0.0");
+new SMTPServer(smtp_config(25)).listen(25, "0.0.0.0", (err) => {
+    if (err) console.error("SMTP 25 端口启动失败:", err.message);
+    else console.log("SMTP 25 端口启动成功");
+});
 // SSL/TLS SMTP
 const privkeyPath = path.join(process.cwd(), 'privkey.pem');
 const fullchainPath = path.join(process.cwd(), 'fullchain.pem');
@@ -108,7 +112,10 @@ if (fs.existsSync(privkeyPath) && fs.existsSync(fullchainPath)) {
         secure: true,
         key: fs.readFileSync(privkeyPath),
         cert: fs.readFileSync(fullchainPath)
-    }).listen(465, "0.0.0.0");
+    }).listen(465, "0.0.0.0", (err) => {
+        if (err) console.error("SMTP 465 端口启动失败:", err.message);
+        else console.log("SMTP 465 端口启动成功");
+    });
 }else{
     console.log("没有找到 TLS/SSL证书，跳过 SMTPS 465 端口");
 }
@@ -153,10 +160,11 @@ module.exports = function (server) {
                     `<div style="font-size:14px;">`,
                     `From: ${email.from}<br/>`,
                     `To: ${email.to}<br/>`,
-                    `Date: ${email.date ? new Date(email.date).toLocaleString("zh-CN") : ''}`,
+                    `Date: ${email.date ? new Date(email.date).toLocaleString("zh-CN") : ''}<br/>`,
+                    `IP: ${email.ip || ''}`,
                     `</div>`,
                     `<hr/>`,
-                    `<div>${email.html}</div>`,
+                    `<div>${email.html||email.text}</div>`,
                     `</body></html>`
                 ].join("")
             }
@@ -173,7 +181,8 @@ module.exports = function (server) {
                 to: key,
                 from: emails[key].from,
                 subject: emails[key].subject,
-                domain: emails[key].domain
+                domain: emails[key].domain,
+                ip: emails[key].ip
             }))
         }
     })
